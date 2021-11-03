@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Solicitações</title>
+
+	<link rel="shortcut icon" type="image/x-jpg"
+		href="#{resource['images/favicon.jpg']}" />
+</h:head>
+<h:body>
+
+	<br />
+	<br />
+
+
+	<h:form id="form">
+
+
+		<p:commandButton value="Pesquisar" id="btnBuscar"
+			actionListener="#{SolicitacaoAutorizadoView.BtnSolicitacaoAutorizado}"
+			update="@form" />
+
+		<br />
+		<br />
+
+
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable id="basicDT" var="m1"
+			value="#{SolicitacaoAutorizadoView.listaSolicitacaoAutorizado}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+			paginator="true" rows="8" style="margin-bottom:20px"
+			paginatorPosition="bottom">
+
+
+			<f:facet name="{Exporters}">
+
+				<h:commandLink>
+
+					<p:graphicImage url="http://localhost:8080/uplouds/pdf.png"
+						width="24" />
+
+					<p:dataExporter type="pdf" target="basicDT" fileName="solicitação"
+						encoding="ISO-8859-1" />
+
+				</h:commandLink>
+
+			</f:facet>
+
+
+
+			<p:column style="width: 15px; text-align: center" exportable="false">
+				<p:commandButton icon="ui-icon-check" title="Selecionar"
+					actionListener="#{ViagemView.selecionarsolicitacao(m1)}">
+				</p:commandButton>
+			</p:column>
+
+			<p:column headerText="Cod" filterBy="#{m1.cod}" sortBy="#{m1.cod}"
+				style="width: 5px; text-align: center">
+				<h:outputText id="solicitacao" value="#{m1.cod}" />
+			</p:column>
+
+			<p:column headerText="Status" filterBy="#{m1.parecer}"
+				sortBy="#{m1.parecer}" style="width: 40px; text-align: center">
+				<h:outputText id="parecer" value="#{m1.parecer}" />
+			</p:column>
+
+			<p:column headerText="Veiculo" filterBy="#{m1.veiculo.modelo}"
+				sortBy="#{m1.veiculo.modelo}"
+				style="width: 40px; text-align: center">
+				<h:outputText id="veiculo" value="#{m1.veiculo.modelo}" />
+				<h:outputText value="  /  " />
+				<h:outputText id="placa" value="#{m1.veiculo.cor}" />
+			</p:column>
+
+			<p:column headerText="Cliente" filterBy="#{m1.cliente.nome}"
+				sortBy="#{m1.cliente.pessoa.nome}"
+				style="width: 40px; text-align: center">
+				<h:outputText id="cliente" value="#{m1.cliente.nome}" />
+			</p:column>
+
+           <p:column headerText="Data Viagem" filterBy="#{m1.cod}"
+				sortBy="#{m1.cod}" style="width: 40px; text-align: center">
+			<h:outputText value="#{m1.datinicial}">
+                <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+				</p:column>
+			
+
+		
+
+
+		
+
+		</p:dataTable>
+
+
+	</h:form>
+
+</h:body>
+</html>

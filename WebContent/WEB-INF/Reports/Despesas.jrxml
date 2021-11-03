@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Despesas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5b6b108-3dad-4780-a63e-35b5f520879f">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[dGNjLnRpcG9kZXNwZXNhcyBBUyAsMjcsMTA3LDkzZjM1ODJkLTZkMGMtNGM3OS04NDU5LWExNGVj
+NDc1YzYyNzt0Y2MuZnVuY2lvbmFyaW8gQVMgLDMzMSwyNjUsMDk2NDAxZTYtZjA0Yi00OTkwLWI3
+M2QtYzlhMDU5MjQ1NDI2O3RjYy5kZXNwZXNhcyBBUyAsMTMzLDM5LGI5NWVkNGFhLWZiYmItNGNk
+NS1iZjU5LWU5ZDY1MGExZDE1Mjs=]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Smart Travels"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT tcc.tipodespesas.`COD`,
+	tcc.tipodespesas.`DESCRICAO`,
+	tcc.despesas.`COD`,
+	tcc.despesas.`NUMCARTAO`,
+	tcc.despesas.`NUMNOTA`,
+	tcc.despesas.`VALOR`,
+	tcc.despesas.`FUNCIONARIO_COD_FUNC`,
+	tcc.despesas.`TIPODESPESAS_COD`,
+	tcc.despesas.`VIAGEM_COD`,
+	tcc.funcionario.`COD_FUNC`,
+	tcc.funcionario.`DEPARTAMENTO_COD`,
+	tcc.funcionario.`PESSOA_COD`,
+	tcc.funcionario.`USUARIO_COD`
+FROM tcc.despesas
+	INNER JOIN tcc.tipodespesas ON 
+	 tcc.despesas.`TIPODESPESAS_COD` = tcc.tipodespesas.`COD` 
+	INNER JOIN tcc.funcionario ON 
+	 tcc.despesas.`FUNCIONARIO_COD_FUNC` = tcc.funcionario.`COD_FUNC`]]>
+	</queryString>
+	<field name="COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipodespesas"/>
+	</field>
+	<field name="DESCRICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DESCRICAO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipodespesas"/>
+	</field>
+	<field name="COLUMN_3" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="NUMCARTAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMCARTAO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="NUMNOTA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMNOTA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="VALOR" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="VALOR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="FUNCIONARIO_COD_FUNC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="FUNCIONARIO_COD_FUNC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="TIPODESPESAS_COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="TIPODESPESAS_COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="VIAGEM_COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="VIAGEM_COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesas"/>
+	</field>
+	<field name="COD_FUNC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="COD_FUNC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<field name="DEPARTAMENTO_COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="DEPARTAMENTO_COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<field name="PESSOA_COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="PESSOA_COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<field name="USUARIO_COD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="USUARIO_COD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<variable name="Total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{VALOR}]]></variableExpression>
+	</variable>
+	<group name="COD">
+		<groupExpression><![CDATA[$F{COD}]]></groupExpression>
+	</group>
+	<group name="DESCRICAO">
+		<groupExpression><![CDATA[$F{DESCRICAO}]]></groupExpression>
+	</group>
+	<group name="COLUMN_3">
+		<groupExpression><![CDATA[$F{COLUMN_3}]]></groupExpression>
+	</group>
+	<group name="NUMCARTAO">
+		<groupExpression><![CDATA[$F{NUMCARTAO}]]></groupExpression>
+	</group>
+	<group name="NUMNOTA">
+		<groupExpression><![CDATA[$F{NUMNOTA}]]></groupExpression>
+	</group>
+	<group name="VALOR">
+		<groupExpression><![CDATA[$F{VALOR}]]></groupExpression>
+	</group>
+	<group name="FUNCIONARIO_COD_FUNC">
+		<groupExpression><![CDATA[$F{FUNCIONARIO_COD_FUNC}]]></groupExpression>
+	</group>
+	<group name="TIPODESPESAS_COD">
+		<groupExpression><![CDATA[$F{TIPODESPESAS_COD}]]></groupExpression>
+	</group>
+	<group name="VIAGEM_COD">
+		<groupExpression><![CDATA[$F{VIAGEM_COD}]]></groupExpression>
+	</group>
+	<group name="COD_FUNC">
+		<groupExpression><![CDATA[$F{COD_FUNC}]]></groupExpression>
+	</group>
+	<group name="DEPARTAMENTO_COD">
+		<groupExpression><![CDATA[$F{DEPARTAMENTO_COD}]]></groupExpression>
+	</group>
+	<group name="PESSOA_COD">
+		<groupExpression><![CDATA[$F{PESSOA_COD}]]></groupExpression>
+	</group>
+	<group name="USUARIO_COD">
+		<groupExpression><![CDATA[$F{USUARIO_COD}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement x="144" y="32" width="228" height="30" uuid="36ce8624-cc35-4b52-a2f0-bcb15d414888"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatorio de Despesas"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-1" y="0" width="555" height="1" uuid="0e48d090-08dc-4280-a602-99e53cacc5f7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="90" width="555" height="1" uuid="5cbe78aa-9488-42d4-b738-237e1476fbc0"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="91" uuid="d8baab8f-3079-4b69-ad91-2f41a31280fa"/>
+			</line>
+			<image>
+				<reportElement x="40" y="20" width="50" height="50" uuid="1d1e6885-ab42-4c7b-8b63-bf6f3e384780"/>
+				<imageExpression><![CDATA["WebContent/resources/images/pdf.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="387" y="22" width="158" height="48" uuid="21083a01-acf5-410f-a2e3-214d10c78125"/>
+				<imageExpression><![CDATA["WebContent/resources/images/smarttravels.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="554" y="1" width="1" height="91" uuid="8bf2bc4e-960f-427d-879c-12c8e87a7ac0"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="104" y="0" width="100" height="30" uuid="6c536830-7b61-43d3-8fba-9a457a74b941">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa96a110-5f56-4750-a2aa-b52a071df6e3"/>
+				</reportElement>
+				<text><![CDATA[DESCRICAO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="0" width="100" height="30" uuid="84656a7b-a8a3-4fa8-8a09-a78b6bc0098f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6955e609-df98-4d7a-a1cf-1a5c177bf8f0"/>
+				</reportElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="30" uuid="f04c841a-ef5b-4e2f-a2ed-9f23dc2baa40">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7cd45805-8ddd-4cf6-b102-930a410cc34e"/>
+				</reportElement>
+				<text><![CDATA[COD_FUNC]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="cc380fa8-a39b-4487-8d33-bdd9bb6128c8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa96a110-5f56-4750-a2aa-b52a071df6e3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="30" uuid="3ac89b05-ecfc-4835-bd5e-d3eb12780ab5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6955e609-df98-4d7a-a1cf-1a5c177bf8f0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="d9ffb880-0dd3-47f2-b533-e0d9e2549fbe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7cd45805-8ddd-4cf6-b102-930a410cc34e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{COD_FUNC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="0" width="100" height="30" uuid="ea9680bd-dde7-42de-8cc5-5b46c926153b"/>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

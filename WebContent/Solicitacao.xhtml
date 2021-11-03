@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>SmartTravels</title>
+
+	<link rel="shortcut icon" type="image/x-jpg"
+		href="#{resource['images/favicon.jpg']}" />
+	<h:outputScript library="js" name="File.js" />
+</h:head>
+<h:body rendered="#{LoginView.userlog.permicao != 0}">
+
+
+	<br />
+	<br />
+
+	<h:form id="form">
+
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:tabView>
+			<p:tab title="Nova solicitação">
+
+				<br />
+				<br />
+
+
+				<h:panelGrid columns="2" cellpadding="4">
+
+
+
+
+					<h:outputText value="Motivo :" />
+					<p:selectOneMenu id="cmbMotivo"
+						value="#{SolicitacaoView.selecaoComboMotivo}" style="width: 150px">
+						<f:selectItems value="#{SolicitacaoView.lstCmbMotivo}" />
+					</p:selectOneMenu>
+
+					<h:outputText value="Veiculo :" />
+					<p:selectOneMenu id="cmbVeiculo"
+						value="#{SolicitacaoView.selecaoComboVeiculo}"
+						style="width: 150px">
+						<f:selectItems value="#{SolicitacaoView.lstCmbVeiculo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data inicial :" />
+					<p:calendar id="button" value="#{SolicitacaoView.datinicial}"
+						locale="pt_BR" showOn="button" placeholder="__/__/____"
+						navigator="true"  />
+
+                    <p:outputLabel value="Data final :" />
+					<p:calendar id="buttonnn" value="#{SolicitacaoView.datfinal}"
+						locale="pt_BR" showOn="button" placeholder="__/__/____"
+						navigator="true"  />
+                    
+
+					<h:outputText value="Cliente :" />
+					<p:selectOneMenu id="cmbCliente"
+						value="#{SolicitacaoView.selecaoComboCliente}"
+						style="width: 150px">
+						<f:selectItems value="#{SolicitacaoView.lstCmbCliente}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<br />
+				<br />
+
+
+				<h:panelGrid columns="3" cellpadding="4">
+
+					<p:commandButton value="Salvar" id="btnSalvar"
+						actionListener="#{SolicitacaoView.btnSalvarAction}" ajax="false" />
+
+					<p:commandButton value="Cancelar" id="btnCancelar"
+						actionListener="#{SelecaoSolicitacaoView.fecharDialogo}" />
+
+					<p:commandButton value="Limpar"
+						actionListener="#{SolicitacaoView.BtnLimpar}" ajax="false" />
+
+				</h:panelGrid>
+
+			</p:tab>
+		</p:tabView>
+	</h:form>
+
+	<center>
+		<div id="Rodape" style="text-align: center; color: White;">By
+			Diones Cândido © 2018 - Todos os direitos reservados.</div>
+	</center>
+
+</h:body>
+</html>

@@ -1,0 +1,16 @@
+#corpo {
+	width: 400px; /* Comprimento / largura do container */
+	background-color: #6FA4D0;
+	align-content: center;
+    box-shadow:2px 6px 6px 2px black;
+}
+
+#Rodape{
+	background-color: #6FA4D0;
+	width: auto; 
+	
+}
+
+.ui-button{
+   background: #03A01B!important;
+}

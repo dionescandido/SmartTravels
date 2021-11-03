@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>Agenda</title>
+
+	<style type="text/css">
+a.emp1 {
+	background-color: red;
+	border-color: red;
+	color: white;
+}
+
+a.emp2 {
+	background: blue;
+}
+</style>
+
+	<h:outputStylesheet library="css" name="agenda.css" />
+
+	<link rel="shortcut icon" type="image/x-jpg"
+		href="#{resource['images/favicon.jpg']}" />
+	<h:outputScript library="js" name="File.js" />
+
+</h:head>
+
+<body rendered="#{LoginView.userlog.permicao != 0}">
+
+	<center>
+		<h:graphicImage library="images" name="smarttravels.jpg" height="80" />
+	</center>
+
+
+	<div style="text-align: right;">
+
+		<h:outputText
+			style="color:green; text-align:center; font-family:verdana;"
+			value="#{LoginView.userlog.nome}" />
+
+		<h:outputText value=" " />
+		<h:outputText value=" " />
+		<h:outputText value=" " />
+
+		<h:graphicImage library="images" name="usuario.png" height="20" />
+	</div>
+
+
+	<h:form >
+<p:menubar>
+
+	<p:menuitem value="Home"
+				url="http://192.168.0.245:8080/SmartTravels/index.xhtml"
+				icon="ui-icon-home" />
+
+			<p:submenu label="Cadastro" icon="ui-icon-document"
+				rendered="#{LoginView.userlog.admin != 0}">
+				<p:menuitem value="Funcionario"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroFuncionario.xhtml" />
+				<p:separator />
+				<p:menuitem value="Cliente"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroCliente.xhtml" />
+				<p:separator />
+				<p:menuitem value="Setor"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroDepartamento.xhtml" />
+				<p:separator />
+				<p:menuitem value="Veiculo"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroVeiculo.xhtml" />
+				<p:separator />
+				<p:menuitem value="Municipio"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroMunicipio.xhtml" />
+				<p:separator />
+				<p:menuitem value="Motivo"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroMotivo.xhtml" />
+				<p:separator />
+				<p:menuitem value="Despesas"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroDespesas.xhtml" />
+					<p:separator />
+				<p:menuitem value="Cartão"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroCartao.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Viagem" icon="ui-icon-suitcase">
+				<p:menuitem value="Solicitação"
+					url="http://192.168.0.245:8080/SmartTravels/SelecaoSolicitacao.xhtml" />
+				<p:separator />
+				<p:menuitem value="Autorização"
+					rendered="#{LoginView.userlog.admin != 0}"
+					url="http://192.168.0.245:8080/SmartTravels/Autorizacao.xhtml" />
+				<p:separator />
+				<p:menuitem value="Agenda"
+					url="http://192.168.0.245:8080/SmartTravels/Agenda.xhtml" />
+				<p:separator />
+				<p:menuitem value="Viagens"
+					url="http://192.168.0.245:8080/SmartTravels/Viagem.xhtml" />
+
+				<p:separator />
+				<p:menuitem value="Despesas"
+					url="http://192.168.0.245:8080/SmartTravels/Despesas.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Usuario" icon="ui-icon-person"
+				rendered="#{LoginView.userlog.admin != 0}">
+				<p:separator />
+				<p:menuitem value="Permissões"
+					url="http://192.168.0.245:8080/SmartTravels/Permissao.xhtml" />
+			</p:submenu>
+
+
+			<p:submenu label="Relatorios" icon="ui-icon-copy">
+				<p:menuitem value="Relatorio de viagens"
+					url="http://192.168.0.245:8080/SmartTravels/RelViagens.xhtml" />
+				<p:menuitem value="Relatorio de despesas"
+					url="http://192.168.0.245:8080/SmartTravels/RelDespesas.xhtml" />
+					
+			</p:submenu>
+
+			<p:menuitem value="Graficos"
+				url="http://192.168.0.245:8080/SmartTravels/Grafico.xhtml"
+				icon="ui-icon-bookmark" />
+
+			<p:menuitem value="Sair" action="#{LoginView.sairLogin}"
+				icon="ui-icon-power" />
+
+
+		</p:menubar>
+
+
+
+		<h:panelGrid columns="4" cellpadding="6">
+
+
+			<p:commandButton value="" oncomplete="PF('dialogo').hide()"
+				style="background: red" />
+			<h:outputText value="Solicitação Finalizada" />
+
+
+			<p:commandButton value="" oncomplete="PF('dialogo').hide()  "
+				style="background: blue" />
+			<h:outputText value="Solicitação Pendente" />
+
+		</h:panelGrid>
+
+
+
+		<p:schedule widgetVar="calendario" id="agenda"
+			value="#{AgendaView.eventoModel}" locale="pt_BR" showWeekends="true"
+			styleClass="emp1">
+
+
+			<p:ajax event="eventSelect" listener="#{AgendaView.selecionaevento}"
+				update="eventDetails" oncomplete="PF('dialogo').show();" />
+
+
+		</p:schedule>
+
+		<p:dialog header="Destino" clousable="true" draggable="true"
+			modal="true" resizable="true" widgetVar="dialogo">
+			
+
+				<h:panelGrid columns="2" id="eventDetails">
+
+
+					<p:outputLabel value="Cliente :" />
+					<h:inputText value="#{AgendaView.eve.description}" disabled="true" />
+
+
+					<p:outputLabel value="Funcionario :" />
+					<h:inputText value="#{AgendaView.eve.title}" disabled="true" />
+
+
+
+
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<br />
+					<br />
+					<br />
+					<br />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()  " />
+
+				</h:panelGrid>
+
+		
+		</p:dialog>
+
+
+	</h:form>
+
+	<center>
+		<div id="Rodape" style="text-align: center; color: White;">By
+			Diones Cândido © 2018 - Todos os direitos reservados.</div>
+	</center>
+
+</body>
+</html>

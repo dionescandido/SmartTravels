@@ -1,0 +1,230 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Relatorio de Despesas</title>
+
+
+
+	<h:outputStylesheet library="css" name="index.css" />
+</h:head>
+<h:body rendered="#{LoginView.userlog.permicao != 0}">
+
+	<center>
+		<h:graphicImage library="images" name="smarttravels.jpg" height="80" />
+	</center>
+
+
+	<br></br>
+
+	<div style="text-align: right;">
+
+		<h:outputText
+			style="color:green; text-align:center; font-family:verdana;"
+			value="#{LoginView.userlog.nome}" />
+
+		<h:outputText value=" " />
+		<h:outputText value=" " />
+		<h:outputText value=" " />
+
+		<h:graphicImage library="images" name="usuario.png" height="20" />
+	</div>
+
+
+	<h:form id="grid">
+		
+
+	<p:menubar>
+
+	<p:menuitem value="Home"
+				url="http://192.168.0.245:8080/SmartTravels/index.xhtml"
+				icon="ui-icon-home" />
+
+			<p:submenu label="Cadastro" icon="ui-icon-document"
+				rendered="#{LoginView.userlog.admin != 0}">
+				<p:menuitem value="Funcionario"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroFuncionario.xhtml" />
+				<p:separator />
+				<p:menuitem value="Cliente"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroCliente.xhtml" />
+				<p:separator />
+				<p:menuitem value="Setor"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroDepartamento.xhtml" />
+				<p:separator />
+				<p:menuitem value="Veiculo"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroVeiculo.xhtml" />
+				<p:separator />
+				<p:menuitem value="Municipio"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroMunicipio.xhtml" />
+				<p:separator />
+				<p:menuitem value="Motivo"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroMotivo.xhtml" />
+				<p:separator />
+				<p:menuitem value="Despesas"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroDespesas.xhtml" />
+					<p:separator />
+				<p:menuitem value="Cartão"
+					url="http://192.168.0.245:8080/SmartTravels/CadastroCartao.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Viagem" icon="ui-icon-suitcase">
+				<p:menuitem value="Solicitação"
+					url="http://192.168.0.245:8080/SmartTravels/SelecaoSolicitacao.xhtml" />
+				<p:separator />
+				<p:menuitem value="Autorização"
+					rendered="#{LoginView.userlog.admin != 0}"
+					url="http://192.168.0.245:8080/SmartTravels/Autorizacao.xhtml" />
+				<p:separator />
+				<p:menuitem value="Agenda"
+					url="http://192.168.0.245:8080/SmartTravels/Agenda.xhtml" />
+				<p:separator />
+				<p:menuitem value="Viagens"
+					url="http://192.168.0.245:8080/SmartTravels/Viagem.xhtml" />
+
+				<p:separator />
+				<p:menuitem value="Despesas"
+					url="http://192.168.0.245:8080/SmartTravels/Despesas.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Usuario" icon="ui-icon-person"
+				rendered="#{LoginView.userlog.admin != 0}">
+				<p:separator />
+				<p:menuitem value="Permissões"
+					url="http://192.168.0.245:8080/SmartTravels/Permissao.xhtml" />
+			</p:submenu>
+
+
+			<p:submenu label="Relatorios" icon="ui-icon-copy">
+				<p:menuitem value="Relatorio de viagens"
+					url="http://192.168.0.245:8080/SmartTravels/RelViagens.xhtml" />
+				<p:menuitem value="Relatorio de despesas"
+					url="http://192.168.0.245:8080/SmartTravels/RelDespesas.xhtml" />
+					
+			</p:submenu>
+
+			<p:menuitem value="Graficos"
+				url="http://192.168.0.245:8080/SmartTravels/Grafico.xhtml"
+				icon="ui-icon-bookmark" />
+
+			<p:menuitem value="Sair" action="#{LoginView.sairLogin}"
+				icon="ui-icon-power" />
+
+
+		</p:menubar>
+
+		<p:growl id="msgs5" showDetail="true" />
+
+
+		<p:tabView>
+		
+
+			<p:tab title="Relatorio de Despesas">
+
+
+				<br />
+				<br />
+				<br />
+
+
+
+
+	<h:panelGrid columns="3" cellpadding="5">
+
+				<h:outputText value="Viagem :" />
+				<p:inputText value="#{DespesasRel.v1.cod}"
+					placeholder="Selecione a viagem" />
+
+				<p:commandButton icon="ui-icon-search"
+					actionListener="#{ViagemView.abrirDialogo}">
+					<p:ajax event="dialogReturn"
+						listener="#{DespesasRel.ViagemSelecionado}" process="@this"
+						update="@form" />
+				</p:commandButton>
+
+					<h:outputText value="Cliente :" />
+					<p:inputText id="pessoacliente" value="#{DespesasRel.nome}"
+						placeholder="Selecione o cliente" />
+
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{ClienteView.abrirDialogo}">
+						<p:ajax event="dialogReturn"
+							listener="#{DespesasRel.CleinteSelecionado}" process="@this"
+							update="@form" />
+					</p:commandButton>
+
+
+					<h:outputText value="Funcionario :" />
+					<p:inputText id="funcionario" value="#{DespesasRel.nomef}"
+						placeholder="Selecione o motorista" />
+
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{SelecaoFuncionarioView.abrirDialogo}">
+						<p:ajax event="dialogReturn"
+							listener="#{DespesasRel.FuncionarioSelecionado}" process="@this"
+							update="@form" />
+					</p:commandButton>
+
+
+					<h:outputText value="Despesas :" />
+					<p:inputText value="#{DespesasRel.tipodespesas.descricao}"
+						placeholder="Selecione o despesa" />
+
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{SelecaoTipoDespesasView.abrirDialogo}">
+						<p:ajax event="dialogReturn"
+							listener="#{DespesasRel.TipoDespesasSelecionado}"
+							process="@this" update="@form" />
+					</p:commandButton>
+
+
+
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="6" cellpadding="4">
+
+
+					<h:outputText value="Entre :" />
+					<p:calendar value="#{DespesasRel.dat_inicial}" locale="pt_BR"
+						showOn="button" placeholder="__/__/____" navigator="true" />☚
+
+
+					<h:outputText value="Há:" />
+					<p:calendar id="button" value="#{DespesasRel.dat_final}"
+						locale="pt_BR" showOn="button" placeholder="__/__/____"
+						navigator="true" />☚
+
+
+
+				</h:panelGrid>
+
+				<br />
+				<br />
+				<br />
+				<h:panelGrid columns="3" cellpadding="2">
+
+					<p:commandButton value="Imprimir" icon="ui-icon-print"
+						id="BtnImprimir" actionListener="#{DespesasRel.btnImprimir}"
+						update="grid" />
+
+
+					<p:commandButton value="Limpar"
+						actionListener="#{DespesasRel.BtnLimpar}" ajax="false" />
+
+				</h:panelGrid>
+
+
+			</p:tab>
+		</p:tabView>
+	</h:form>
+
+	<center>
+		<div id="Rodape" style="text-align: center; color: White;">By
+			Diones Cândido © 2018 - Todos os direitos reservados.</div>
+	</center>
+
+</h:body>
+</html>

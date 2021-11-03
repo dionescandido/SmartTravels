@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Cadastro de Usuario</title>
+
+	<link rel="shortcut icon" type="image/x-jpg"
+		href="#{resource['images/favicon.jpg']}" />
+
+	<h:outputStylesheet library="css" name="index.css" />
+</h:head>
+<h:body >
+
+	<center>
+	 <h:graphicImage library="images" name="smarttravels.jpg" height="80"/>
+	</center>
+
+
+	<p:growl id="msgs" showDetail="true" />
+
+	<h3 style="margin-top: 0"></h3>
+
+
+	<p:tabView>
+		<p:tab title="Cadastro de Usuario">
+			<br />
+			<br />
+			<br />
+			<h:panelGrid columns="2" cellpadding="3">
+				<center>
+					<h:form>
+
+						<h:panelGrid columns="3" cellpadding="4">
+
+						
+							<br />
+
+							<p:outputLabel value="USUARIO :" />
+							<p:inputText id="txtuser" value="#{SelecaoUsuarioView.user}"
+								placeholder="-- Digite seu usuario --" />
+							<br />
+							<br />
+							<p:outputLabel value="SENHA :" />
+							<p:password id="txtsenha" value="#{SelecaoUsuarioView.senha}"
+								placeholder="-- Digite sua senha --" />
+							<br />
+							<br />
+							<p:outputLabel value="CONFIRMAR SENHA :" />
+							<p:password id="txtconfsenha"
+								value="#{SelecaoUsuarioView.conf_senha}"
+								placeholder="-- Confirme sua senha --" />
+							<br />
+							<br />
+							<p:outputLabel value="NOME :" />
+							<p:inputText id="txtnome" value="#{SelecaoUsuarioView.nome}"
+								placeholder="-- Digite sua nome --" />
+							<br />
+							<br />
+							<p:outputLabel value="E-MAIL :" />
+							<p:inputText id="txtemail" value="#{SelecaoUsuarioView.email}"
+								placeholder="-- Digite seu e-mail --" />
+
+						</h:panelGrid>
+
+						<br />
+						<br />
+					
+						<br />
+
+						<h:panelGrid id="teste" columns="3" cellpadding="2">
+
+							<p:commandButton value="Salvar" id="btnSalvar"
+								actionListener="#{SelecaoUsuarioView.btnSalvarAction}"
+								ajax="false" />
+							<p:commandButton value="Voltar" id="btnVoltar"
+								actionListener="#{SelecaoUsuarioView.btnVoltarAction}"
+								ajax="false" />
+
+							<p:commandButton value="Limpar"
+								actionListener="#{SelecaoUsuarioView.BtnLimpar}" ajax="false" />
+
+						</h:panelGrid>
+						
+						
+					</h:form>
+				</center>
+			</h:panelGrid>
+		</p:tab>
+	</p:tabView>
+
+
+
+	<center>
+		<div id="Rodape" style="text-align: center; color: White;">By
+			Diones Cândido © 2018 - Todos os direitos reservados.</div>
+	</center>
+
+</h:body>
+</html>

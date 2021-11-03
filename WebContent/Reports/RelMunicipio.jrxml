@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelMunicipio" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="cliente" class="br.com.model.Cliente">
+		<parameterDescription><![CDATA[cliente]]></parameterDescription>
+	</parameter>
+	<parameter name="funcionario" class="br.com.model.Funcionario">
+		<parameterDescription><![CDATA[funcionario]]></parameterDescription>
+	</parameter>
+	<parameter name="veiculo" class="br.com.model.Veiculo">
+		<parameterDescription><![CDATA[veiculo]]></parameterDescription>
+	</parameter>
+	<parameter name="motivo" class="java.lang.Integer">
+		<parameterDescription><![CDATA[motivo]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT tcc.solicitacao.`COD`,
+	tcc.solicitacao.`DATSOLICT`,
+	tcc.solicitacao.`DATVIAGEM`
+FROM tcc.solicitacao]]>
+	</queryString>
+	<field name="solicitacao" class="br.com.model.Solicitacao">
+		<fieldDescription><![CDATA[solicitacao]]></fieldDescription>
+	</field>
+	<field name="motorista" class="br.com.model.Funcionario">
+		<fieldDescription><![CDATA[motorista]]></fieldDescription>
+	</field>
+	<field name="cod" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod]]></fieldDescription>
+	</field>
+	<field name="dat_inicial" class="java.util.Date">
+		<fieldDescription><![CDATA[dat_inicial]]></fieldDescription>
+	</field>
+	<field name="dat_final" class="java.util.Date">
+		<fieldDescription><![CDATA[dat_final]]></fieldDescription>
+	</field>
+	<variable name="contar_viagens" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{cod}]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[//filtro funcionario -------------------------------------------------------------------------------------
+
+//todos
+$P{funcionario}!=null&&$P{cliente}!=null&&$P{veiculo}!=null&&$P{motivo}!=0?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+
+//funcionario e veiculo e cliente
+$P{funcionario}!=null&&$P{cliente}!=null&&$P{veiculo}!=null&&$P{motivo}==0?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+
+//funcionario e cliente
+$P{funcionario}!=null&&$P{cliente}!=null&&$P{veiculo}==null&&$P{motivo}==0?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+
+//funcionario, motivo e  veiculo
+$P{funcionario}!=null&&$P{cliente}==null&&$P{veiculo}!=null&&$P{motivo}!=0?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+
+// funcionario e motivo
+$P{funcionario}!=null&&$P{cliente}==null&&$P{veiculo}==null&&$P{motivo}!=0?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+
+//funcionario e veiculo
+$P{funcionario}!=null&&$P{cliente}==null&&$P{veiculo}!=null&&$P{motivo}==0?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+
+//funcionario
+$P{funcionario}!=null&&$P{cliente}==null&&$P{veiculo}==null&&$P{motivo}==0?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$P{funcionario}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+
+
+//filtro veiculo ------------------------------------------------------------------------------------------------
+
+	($P{veiculo}!=null?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+		
+		
+			($P{veiculo}!=null&&$P{cliente}!=null?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+				
+				
+						($P{veiculo}!=null&&$P{cliente}!=null&&$P{motivo}!=0?$P{veiculo}.getCod()==$F{solicitacao}.getVeiculo().getCod()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+
+
+//filtro motivo --------------------------------------------------------------------------------------------------------
+
+		($P{motivo}!=0?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+			
+			
+		($P{motivo}!=0&&$P{cliente}!=null?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$P{motivo}==$F{solicitacao}.getMotivo().getCod():
+
+
+//filtro cliente -----------------------------------------------------------------------------------------------------------------
+
+			($P{cliente}!=null?$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$P{cliente}.getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo():
+			$F{solicitacao}.getVeiculo()==$F{solicitacao}.getVeiculo()&&$F{motorista}.getCod()==$F{motorista}.getCod()&&$F{solicitacao}.getCliente().getCod()==$F{solicitacao}.getCliente().getCod()&&$F{solicitacao}.getMotivo()==$F{solicitacao}.getMotivo()
+			
+		)
+	)
+))))]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="553" height="95" backcolor="#FFFFFF" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<image>
+					<reportElement x="103" y="4" width="441" height="90" uuid="598444b0-f3db-4309-aa42-5fdef881fd20"/>
+					<imageExpression><![CDATA["Publis.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="553" height="32" forecolor="#000000" backcolor="#E0DEDE" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="404" y="7" width="144" height="20" forecolor="#000000" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="11" y="5" width="219" height="26" forecolor="#000000" backcolor="#080808" uuid="4b905423-6200-425b-9e14-0e4dec13e703"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Relatorio de viagens"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="41" y="10" width="77" height="26" uuid="d489ec4b-9186-444e-b062-5fd91e386b2d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data Inicial"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="10" width="90" height="26" uuid="6f303543-23d7-4512-b88f-4a6fa273a51f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Motorista"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="10" width="76" height="26" uuid="e8784670-2ecd-4f17-96ce-f2057396dbba"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Veiculo"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="10" width="90" height="26" uuid="9fe9954a-8ad3-49ea-9d88-d26357dade76"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cliente"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="10" width="77" height="26" uuid="28bb765b-526e-4ef1-9a29-41da2ed94755"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Motivo"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="10" width="75" height="26" uuid="f5674c80-5916-4f88-86ee-b8b8aa17c535"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data Final"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="41" height="26" uuid="71010325-132b-4d5f-81f0-bf1a188da8cd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cod"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="2" width="555" height="20" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
+				<textField>
+					<reportElement x="7" y="-1" width="36" height="20" uuid="4de5fa10-6bfe-418f-8111-ff2a7c395d75">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cod}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yy">
+					<reportElement x="118" y="0" width="75" height="20" uuid="dce64424-7400-4d47-97fb-a7ba150e7340">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dat_final}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="189" y="0" width="90" height="20" uuid="3cfab709-35c1-442b-8a05-8b47b414fd6a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{motorista}.getNome()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="0" width="79" height="20" uuid="472b807e-e348-4914-bbbd-33f1b8e78bef">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{solicitacao}.getVeiculo().getModelo()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="0" width="89" height="20" uuid="347c99db-9387-4a63-a9ac-4880780a5998">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{solicitacao}.getCliente().getNome()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="449" y="0" width="77" height="20" uuid="be436f1b-7f76-4711-a297-465302c6ab56">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae7c37b9-5cfe-4f4b-be4b-b87f4c5dd209"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{solicitacao}.getMotivo().getDescricao()]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yy">
+					<reportElement x="43" y="0" width="67" height="19" uuid="df1488e0-c4c8-4bdf-afb5-be5e6f4e2df4"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{dat_inicial}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="30" width="555" height="1" uuid="1133a906-5b71-476e-9f3e-bc97c97058c1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="513" y="16" width="46" height="20" uuid="3051135e-b633-4f9a-ad50-4ba08fb8fdb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{contar_viagens}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="16" width="100" height="19" uuid="036de109-5f4d-45cb-8b39-0f265ceb467f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total de Viagens : "]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#000000" backcolor="#DEDEDE" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#D0B48E"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#D0B48E"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#D0B48E"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#D0B48E"/>
+				</box>
+				<textField>
+					<reportElement x="452" y="4" width="80" height="20" forecolor="#000000" backcolor="#000000" uuid="7be2399d-8d60-4397-a95f-5867a536b94f"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="513" y="4" width="39" height="20" uuid="0752a933-5bb7-4e80-93d8-da09ffea1528"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

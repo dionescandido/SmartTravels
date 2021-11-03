@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Login</title>
+
+	<link rel="shortcut icon" type="image/x-jpg"
+		href="#{resource['images/favicon.jpg']}" />
+	<h:outputStylesheet library="css" name="Login.css" />
+</h:head>
+<h:body>
+
+
+	<center>
+	
+		<h:graphicImage library="images" name="smarttravels.jpg" height="80"/>
+		
+	</center>
+
+
+	<p:growl id="msgs" showDetail="true" />
+
+	<div id="cabecario">
+
+		<br />
+
+	</div>
+
+
+	<p:tabView>
+		<p:tab title="Login">
+
+<br />
+			<center>
+
+
+				<h:form>
+					<div id="corpo">
+						<br />
+
+                        <h:graphicImage library="images" name="iconlogin.png" height="80"/>
+		
+
+						<br /><br/>
+
+						<h:panelGrid columns="3" cellpadding="5">
+
+							<p:outputLabel value="USUARIO :" style="color:White;" />
+							<p:inputText id="txtuser" value="#{LoginView.usuario.user}"
+								placeholder="-- Digite seu usuario --" />
+							<br />
+							<br />
+							<p:outputLabel value="SENHA :" style="color:White;" />
+							<p:password id="txtsenha" value="#{LoginView.usuario.senha}"
+								placeholder="-- Digite sua senha --" />
+							<br />
+							<br />
+
+
+						</h:panelGrid>
+
+
+						<br /> 
+
+						<p:commandButton value="Entrar" id="btnEntrar"
+							style="color:White;" actionListener="#{LoginView.envia}"
+							ajax="false" />
+						<br /> <br /> <br />
+						<p:commandLink value="Cadastre-se"
+							style="text-align: center; color: Green;" id="btnCadastro"
+							actionListener="#{LoginView.btnCadastroAction}">
+							<h:outputText value="Ajax Submit" />
+						</p:commandLink>
+						<br /> <br />
+
+					</div>
+
+
+
+				</h:form>
+
+			</center>
+<br/>
+		</p:tab>
+
+	</p:tabView>
+
+<br />
+
+	<center>
+		<div id="Rodape" style="text-align: center; color: White;">By
+			Diones Cândido © 2018 - Todos os direitos reservados.</div>
+	</center>
+
+</h:body>
+</html>

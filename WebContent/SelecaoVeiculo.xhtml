@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Lista de Veiculo</title>
+	
+	<link rel="shortcut icon" type="image/x-jpg" href="#{resource['images/favicon.jpg']}" />
+</h:head>
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" closable="true" />
+		<br />
+
+		<table>
+			<tr>
+
+				<p:inputText id="modelo" size="40"
+					style="margin: 10px; margin-bottom: 20px"
+					value="#{VeiculoView.modelo}" placeholder="Nome do veiculo" />
+
+
+				<p:commandButton value="Pesquisar" id="btnBuscar"
+					actionListener="#{VeiculoView.btnBuscarAction}" update="@form" />
+
+
+			</tr>
+			<tr>
+				<td colspan="4" style="height: 25px"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><p:dataTable id="dgVeiculo" var="m1"
+						value="#{VeiculoView.listaVeiculo}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+						paginator="true" rows="5" style="margin-bottom:20px"
+						paginatorPosition="bottom">
+
+
+						<f:facet name="{Exporters}">
+
+							<h:commandLink>
+
+								<p:graphicImage url="http://localhost:8080/uplouds/pdf.png" width="24" />
+
+								<p:dataExporter type="pdf" target="dgVeiculo"
+									fileName="veiculos" encoding="ISO-8859-1" />
+
+							</h:commandLink>
+
+						</f:facet>
+
+
+						<p:column style="width: 30px; text-align: center"
+							exportable="false">
+							<p:commandButton icon="ui-icon-check" title="Selecionar"
+								actionListener="#{SelecaoVeiculoView.selecionar(m1)}">
+							</p:commandButton>
+						</p:column>
+
+						<p:column headerText="Cod" style="width: 40px; text-align: center">
+							<h:outputText id="veiculo" value="#{m1.cod}" />
+						</p:column>
+
+						<p:column headerText="Modelo">
+							<h:outputText value="#{m1.modelo}" />
+						</p:column>
+
+						<p:column headerText="Placa" style=" text-align: center">
+							<h:outputText value="#{m1.placa}" />
+						</p:column>
+
+						<p:column headerText="Ano" style=" text-align: center">
+							<h:outputText value="#{m1.ano}" />
+						</p:column>
+
+						<p:column headerText="Cor" style=" text-align: center">
+							<h:outputText value="#{m1.cor}" />
+						</p:column>
+
+					</p:dataTable></td>
+			</tr>
+		</table>
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Lista de Autorização</title>
+	
+	<link rel="shortcut icon" type="image/x-jpg" href="#{resource['images/favicon.jpg']}" />
+</h:head>
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" closable="true" />
+		<br />
+
+		<table>
+			<tr>
+
+				<p:inputText id="cod" size="40"
+					style="margin: 10px; margin-bottom: 20px"
+					value="#{AutorizacaoView.cod}" placeholder="cod da Autorizacao" />
+
+
+				<p:commandButton value="Pesquisar" id="btnBuscar"
+					actionListener="#{AutorizacaoView.btnBuscarAction}" update="@form" />
+
+
+			</tr>
+			<tr>
+				<td colspan="4" style="height: 25px"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><p:dataTable id="dgautorizacao" var="m1"
+						value="#{AutorizacaoView.listaAutorizacao}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="5" style="margin-bottom:20px"
+						paginatorPosition="bottom">
+
+						<p:column style="width: 30px; text-align: center">
+							<p:commandButton icon="ui-icon-check" title="Selecionar"
+								actionListener="#{AutorizacaoView.selecionar(m1)}">
+							</p:commandButton>
+						</p:column>
+
+						<p:column headerText="Cod" style="width: 40px; text-align: center">
+							<h:outputText id="autorizacao" value="#{m1.cod}" />
+						</p:column>
+
+
+					</p:dataTable></td>
+			</tr>
+		</table>
+
+	</h:form>
+</h:body>
+</html>
